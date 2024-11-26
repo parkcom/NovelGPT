@@ -3,7 +3,6 @@ import uuid
 
 import streamlit as st
 from openai import OpenAI
-from sqlalchemy import false
 
 from ch09_dalle import get_image_by_dalle
 from ch09_gpt import get_llm
