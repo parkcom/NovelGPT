@@ -1,11 +1,11 @@
 import base64
 import io
 
-from openai import OpenAI
+import openai
 from PIL import Image
 
 
-def get_image_by_dalle(client: OpenAI, genre, img_prompt):
+def get_image_by_dalle(client: openai.OpenAI, genre, img_prompt):
     response = client.images.generate(
         model="dall-e-3",
         prompt="The name of this story is "
