@@ -1,3 +1,4 @@
+import streamlit as st
 from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables.history import RunnableWithMessageHistory
@@ -9,7 +10,9 @@ store = {}
 def get_llm(session_id: str):
     global store
 
-    model = ChatOpenAI(temperature=1.0, max_tokens=2048, model="gpt-4o-mini")
+    model = ChatOpenAI(
+        temperature=1.0, max_tokens=2048, model=st.session_state["model_name"]
+    )
 
     template = """
 ### Context ###

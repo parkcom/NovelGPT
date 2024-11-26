@@ -1,6 +1,7 @@
 import os
 import uuid
 
+import openai
 import streamlit as st
 from openai import OpenAI
 
@@ -123,6 +124,11 @@ def generate_content(story, decisionQuestion, choices: list, img, oid):
                 )
 
 
+def get_available_models(openai_api_key) -> list:
+    models = OpenAI(api_key=openai_api_key).models.list()
+    return [model.id for model in models.data]
+
+
 def main():
     st.title("📚 NovelGPT")
     if "data_dict" not in st.session_state:
@@ -167,6 +173,24 @@ def main():
             )
 
             btn = st.form_submit_button(label="Submit", on_click=auth)
+
+        if len(openai_key) > 0:
+            available_models = get_available_models(openai_key)
+
+            def format_model_name(model_name):
+                return f"🟩 {model_name}" if model_name else model_name
+
+            model_name = st.selectbox(
+                "Choose ChatOpenAI Model",
+                available_models,
+                index=available_models.index("gpt-4o-mini")
+                if "gpt-4o-mini" in available_models
+                else 0,
+                key="chat_model",
+                help="Select the ChatOpenAI model to use for generating the story.",
+                format_func=format_model_name,
+            )
+            st.session_state["model_name"] = model_name if model_name else "gpt-4o-mini"
 
         with st.expander("사용 가이드"):
             st.markdown("""
