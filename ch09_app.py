@@ -1,8 +1,8 @@
 import os
 import uuid
 
-from openai import OpenAI
 import streamlit as st
+from openai import OpenAI
 
 from ch09_dalle import get_image_by_dalle
 from ch09_gpt import get_llm
@@ -132,7 +132,7 @@ def main():
         st.session_state["oid_list"] = []
 
     if "openai_api_key" not in st.session_state:
-        st.session_state["openai_api_key"] = os.getenv("OPENAI_API_KEY")
+        st.session_state["openai_api_key"] = ""
 
     if "apiBox_state" not in st.session_state:
         st.session_state["apiBox_state"] = False
