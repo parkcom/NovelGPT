@@ -1,7 +1,7 @@
 import os
 import uuid
 
-import openai
+from openai import OpenAI
 import streamlit as st
 
 from ch09_dalle import get_image_by_dalle
@@ -35,7 +35,7 @@ def get_output(_pos: st.empty, oid="", genre="", prompt=""):
 
 
 def get_story_and_image(genre, user_choice):
-    client = openai.OpenAI()
+    client = OpenAI()
     llm_model = get_llm("test")
 
     llm_generation_result = llm_model.invoke(
